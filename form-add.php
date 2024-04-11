@@ -17,11 +17,11 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 
 
 
-$id = $_GET['id'];
+// $id = $_GET['id'];
 
-$stmt = $pdo->prepare("SELECT * FROM user_date WHERE id = ?");
-$stmt->execute([$id]);
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+// $stmt = $pdo->prepare("SELECT * FROM user_date WHERE id = ?");
+// $stmt->execute([$id]);
+// $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 
@@ -40,33 +40,33 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 <body class="bg-dark text-white">
     
 <div class="row justify-content-center mx-auto"> 
-<form action="/S1-L3-Database%20MySQL-parte1/insert.php" method="post" class="col-5  g-3 needs-validation " > 
+<form action="/S1-L3-Database%20MySQL-parte1/add.php" method="post" class="col-5  g-3 needs-validation " > 
     <div>
   <div class="col-md-12" >
     <label for="name" class="form-label">Name:</label>
-    <input type="text" name="name" class="form-control " id="name" placeholder="Name" value="<?=$row["name"] ?>" >
+    <input type="text" name="name" class="form-control " id="name" placeholder="Name" >
   
   </div>
   <div class="col-md-12">
     <label for="surname" class="form-label">Surname:</label>
-    <input type="text" class="form-control" name="surname" id="surmane" placeholder="Surname" value="<?=$row["surname"] ?>" >
+    <input type="text" class="form-control" name="surname" id="surmane" placeholder="Surname" >
    
   </div>
 
   <div class="col-md-12">
       <label for="email" class="form-label">Email:</label>
-      <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?=$row["email"] ?>"   >
+      <input type="text" class="form-control" name="email" id="email" placeholder="Email"  >
       
     </div>
   <div class="col-md-12">
       <label for="age" class="form-label">Age:</label>
-      <input type="text" class="form-control" name="age" id="age" placeholder="Age" value="<?=$row["age"] ?>"   >
+      <input type="text" class="form-control" name="age" id="age" placeholder="Age">
       
     </div>
    
   
   <div class="col-12 justify-content-center d-flex">
-    <button class="btn btn-success mt-4" type="submit">Modifica</button>
+    <button class="btn btn-success mt-4" type="submit">Save</button>
   </div>
 </form>
 
