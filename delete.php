@@ -23,6 +23,6 @@ $stmt = $pdo->prepare("DELETE  FROM user_date WHERE id = ?");
 $stmt->execute([$id]);
 $row = $stmt->execute([$id]);
 
-header("Location: /S1-L3-Database%20MySQL-parte1/index.php");
+header("Location: /S1-L3-L4-Database%20MySQL-parte1-2/index.php");
 
 ?>

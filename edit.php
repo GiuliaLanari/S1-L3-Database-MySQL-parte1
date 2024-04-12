@@ -19,16 +19,19 @@ $name = $_POST ["name"]?? "";
 $surname = $_POST ["surname"]?? "";
 $email = $_POST ["email"]?? "";
 $age = $_POST ["age"]?? "";
+$id = $_POST['id'];
 
 
 
+$stmt = $pdo->prepare("UPDATE user_date SET name= :name, surname= :surname, email= :email, age= :age WHERE id=:id");
+$stmt->execute([
+    'id'=> $id,
+    'name' => $name,
+    'surname' => $surname,
+    'email' => $email,
+    'age' => $age ,
+]);
 
-// $stmt = $pdo->prepare("INSERT INTO user_date (name, surname, email, age) VALUES (:name, :surname, :email, :age)");
-// $stmt->execute([
-//     'name' => $name,
-//     'surname' => $surname,
-//     'email' => $email,
-//     'age' => $age ,
-// ]);
 
-header("Location: /S1-L3-Database%20MySQL-parte1/index.php");
+
+header("Location: /S1-L3-L4-Database%20MySQL-parte1-2/index.php");

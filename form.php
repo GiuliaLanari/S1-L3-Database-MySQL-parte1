@@ -40,7 +40,8 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 <body class="bg-dark text-white">
     
 <div class="row justify-content-center mx-auto"> 
-<form action="/S1-L3-Database%20MySQL-parte1/insert.php" method="post" class="col-5  g-3 needs-validation " > 
+<form  action="/S1-L3-L4-Database%20MySQL-parte1-2/edit.php" method="post" class="col-5  g-3 needs-validation " > 
+  <input type="hidden" name="id" value="<?= $id ?>">
     <div>
   <div class="col-md-12" >
     <label for="name" class="form-label">Name:</label>
@@ -71,6 +72,8 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 </form>
 
 </div>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

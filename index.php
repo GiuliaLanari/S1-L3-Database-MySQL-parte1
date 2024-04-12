@@ -16,7 +16,28 @@ $options = [
 
 $pdo = new PDO($dsn, $user, $pass, $options);
 
-$stmt = $pdo->query('SELECT * FROM user_date');
+
+// SELECT * FROM user_date LIMIT 5;
+
+
+
+
+$search= $_GET["search"] ?? "";
+
+$stmt = $pdo->prepare('SELECT * FROM user_date WHERE name LIKE ? LIMIT 5 OFFSET');
+$stmt->execute(["%$search%"]);
+
+
+// $limit = 2;
+// $page = isset($_GET['page']) ? $_GET['page'] : 1;
+// $offset = ($page - 1) * $limit;
+// $stmt = $pdo->prepare('SELECT * FROM client LIMIT :limit OFFSET :offset');
+// $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+// $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+// $stmt->execute();
+// $paginated_results = $stmt->fetchAll();
+
+
 
 ?>
 
@@ -30,14 +51,23 @@ $stmt = $pdo->query('SELECT * FROM user_date');
     <title>Tabella nome utenti</title>
 </head>
 <body class="bg-dark text-white">
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+  <h1 class="display-6">Nomi di tutti gli utenti:</h1>
+
+      <form class="d-flex" role="search" action="" method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
 <div class="container">
 <div class="row justify-content-center">
-<h1 class="display-3">Nomi di tutti gli utenti:</h1>
-<div >
-<a class="btn btn-success" href= "http://localhost/S1-L3-Database%20MySQL-parte1/form-add.php">Add New</a>
+<div class="text-center mt-5" >
+<a class="btn btn-success  " href= "http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/form-add.php">Add New</a>
 </div>
-
-<div class="col-5 ">
+<div class="col-xs-10 col-md-8 col-lg-5  mt-5">
 <table class="table table-dark table-striped p-2 ">
   <thead>
     <tr>
@@ -58,9 +88,9 @@ while ($row = $stmt->fetch())
      echo "<td>$row[surname]</td>";
      ?>
      <td>
-     <a class="btn btn-primary" href= "http://localhost/S1-L3-Database%20MySQL-parte1/form.php/?id=<?=$row['id'] ?>">Edit</a>
-     <a class="btn btn-danger" href=  "http://localhost/S1-L3-Database%20MySQL-parte1/delete.php/?id=<?=$row['id'] ?>">Delete</a>
-     <a class="btn btn-info" href=  "http://localhost/S1-L3-Database%20MySQL-parte1/info.php/?id=<?=$row['id'] ?>">Info</a>
+     <a class="btn btn-primary" href= "http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/form.php/?id=<?=$row['id'] ?>">Edit</a>
+     <a class="btn btn-danger" href=  "http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/delete.php/?id=<?=$row['id'] ?>">Delete</a>
+     <a class="btn btn-info" href=  "http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/info.php/?id=<?=$row['id'] ?>">Info</a>
     </td>
 </tr>
     <?php
@@ -74,6 +104,27 @@ while ($row = $stmt->fetch())
 </table>
 </div>
 </div>
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+<nav aria-label="Page navigation example bg-black text-white">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

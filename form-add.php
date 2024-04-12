@@ -40,7 +40,7 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 <body class="bg-dark text-white">
     
 <div class="row justify-content-center mx-auto"> 
-<form action="/S1-L3-Database%20MySQL-parte1/add.php" method="post" class="col-5  g-3 needs-validation " > 
+<form action="/S1-L3-L4-Database%20MySQL-parte1-2/add.php" method="post" class="col-5  g-3 needs-validation " > 
     <div>
   <div class="col-md-12" >
     <label for="name" class="form-label">Name:</label>

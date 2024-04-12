@@ -43,7 +43,7 @@ $row = $stmt->fetch();
     <h5 class="card-title display-6 text-center"><?= $row["name"] ?> <?= $row["surname"] ?></h5>
     <p class="card-text ">Age: <?= $row["age"] ?> </p>
     <p class="card-text">Email: <?= $row["email"] ?> </p>
-    <a href=" /S1-L3-Database%20MySQL-parte1/index.php" class="btn btn-outline-success ms-auto">Go Back</a>
+    <a href=" /S1-L3-L4-Database%20MySQL-parte1-2/index.php" class="btn btn-outline-success ms-auto">Go Back</a>
   </div>
 </div>
 
