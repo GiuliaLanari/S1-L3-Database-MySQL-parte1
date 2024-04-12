@@ -16,27 +16,33 @@ $options = [
 
 $pdo = new PDO($dsn, $user, $pass, $options);
 
-
-// SELECT * FROM user_date LIMIT 5;
-
-
-
-
 $search= $_GET["search"] ?? "";
 
-$stmt = $pdo->prepare('SELECT * FROM user_date WHERE name LIKE ? LIMIT 5 OFFSET');
-$stmt->execute(["%$search%"]);
+$page = $_GET["page"]?? 1;
+$per_page = $_GET["per_pAGE"]?? 5;
+$per_page= $per_page > 100 ? 5 : $per_page;
+
+$offset = ($page -1)* $per_page;
 
 
-// $limit = 2;
-// $page = isset($_GET['page']) ? $_GET['page'] : 1;
-// $offset = ($page - 1) * $limit;
-// $stmt = $pdo->prepare('SELECT * FROM client LIMIT :limit OFFSET :offset');
-// $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-// $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-// $stmt->execute();
-// $paginated_results = $stmt->fetchAll();
+$stmt = $pdo->prepare('SELECT * FROM user_date WHERE name LIKE :search LIMIT :per_page OFFSET :offset ');
+$stmt->execute([
+  "search" =>"%$search%",
+  "per_page" => "$per_page",
+  "offset"=> "$offset"
+]);
 
+$utenti= $stmt->fetchAll();
+
+
+$stmt = $pdo->prepare("SELECT COUNT(*) AS num_utenti FROM user_date WHERE name LIKE :search");
+$stmt->execute([
+  // "%$search%"
+  "search"=> "%&search%"
+]);
+
+$num_utenti= $stmt->fetch()["num_utenti"];
+$tot_pages= ceil($num_utenti / $per_page);
 
 
 ?>
@@ -56,7 +62,7 @@ $stmt->execute(["%$search%"]);
   <h1 class="display-6">Nomi di tutti gli utenti:</h1>
 
       <form class="d-flex" role="search" action="" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <input class="form-control me-2" type="search" placeholder="Search"  aria-label="Search" name="search" value="<?= $search ?>">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
@@ -82,7 +88,7 @@ $stmt->execute(["%$search%"]);
     
       
       <?php
-while ($row = $stmt->fetch())
+foreach ($utenti as $row)
 {?><tr><?php
      echo "<td>$row[name]</td>";
      echo "<td>$row[surname]</td>";
@@ -107,21 +113,35 @@ while ($row = $stmt->fetch())
 </div>
 
 <div class="d-flex justify-content-center mt-5">
-<nav aria-label="Page navigation example bg-black text-white">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
+
+  <nav>
+        <ul class="pagination bg-black text-white">
+
+  <li class="page-item<?= $page == 1 ? ' disabled' : '' ?>">
+     <a
+        class="page-link"
+        href="/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>"
+      >Previous</a>
+  </li><?php
+
+for ($i=1; $i <= $tot_pages; $i++) { ?>
+  <li class="page-item <?= $page == $i ? ' active': '' ?>">
+      <a
+          class="page-link"
+          href="/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"
+      ><?= $i ?></a>
+  </li><?php
+} ?>
+
+<li class="page-item<?= $page == $tot_pages ? ' disabled' : '' ?>">
+<a
+  class="page-link"
+  href="/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>"
+>Next</a>
+</li>
+
+
+
   </ul>
 </nav>
 

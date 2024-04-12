@@ -38,7 +38,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
     <title>form</title>
 </head>
 <body class="bg-dark text-white">
-    
+    <h1 class="display-2 text-center my-5">Modifica:</h1>
 <div class="row justify-content-center mx-auto"> 
 <form  action="/S1-L3-L4-Database%20MySQL-parte1-2/edit.php" method="post" class="col-5  g-3 needs-validation " > 
   <input type="hidden" name="id" value="<?= $id ?>">
