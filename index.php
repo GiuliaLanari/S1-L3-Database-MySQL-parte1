@@ -20,7 +20,7 @@ $search= $_GET["search"] ?? "";
 
 $page = $_GET["page"]?? 1;
 $per_page = $_GET["per_pAGE"]?? 5;
-$per_page= $per_page > 100 ? 5 : $per_page;
+$per_page= $per_page > 50 ? 5 : $per_page;
 
 $offset = ($page -1)* $per_page;
 
@@ -37,7 +37,7 @@ $utenti= $stmt->fetchAll();
 
 $stmt = $pdo->prepare("SELECT COUNT(*) AS num_utenti FROM user_date WHERE name LIKE :search");
 $stmt->execute([
-  // "%$search%"
+ 
   "search"=> "%&search%"
 ]);
 
@@ -115,28 +115,29 @@ foreach ($utenti as $row)
 <div class="d-flex justify-content-center mt-5">
 
   <nav>
-        <ul class="pagination bg-black text-white">
+  <ul class="pagination ">
 
-  <li class="page-item<?= $page == 1 ? ' disabled' : '' ?>">
+  <li class="page-item <?= $page === 1 ? ' disabled' : '' ?>">
      <a
         class="page-link"
-        href="/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>"
+        href="http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>"
       >Previous</a>
   </li><?php
 
-for ($i=1; $i <= $tot_pages; $i++) { ?>
-  <li class="page-item <?= $page == $i ? ' active': '' ?>">
+for ($i=1; $i <= $tot_pages; $i++) {?>
+
+  <li class="page-item <?= $page === $i ? ' active': '' ?>">
       <a
           class="page-link"
-          href="/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"
+          href="http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"
       ><?= $i ?></a>
   </li><?php
 } ?>
 
-<li class="page-item<?= $page == $tot_pages ? ' disabled' : '' ?>">
+<li class="page-item<?= $page === $tot_pages ? ' disabled' : '' ?>">
 <a
   class="page-link"
-  href="/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>"
+  href="http://localhost/S1-L3-L4-Database%20MySQL-parte1-2/?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>"
 >Next</a>
 </li>
 
